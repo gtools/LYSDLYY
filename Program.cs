@@ -17,7 +17,7 @@ namespace LYSDLYY
             try
             {
                 // bin文件的地址
-                //var pathbin = @"C:\resource\金网运营管理系统\GTSharp\Bin\f040c503-4355-4488-99ea-112fac689429.bin";
+                //var pathbin = @"C:\resource\金网运营管理系统\GTSharp\Bin\d5e7d753-9419-4db4-a6fe-b5ed6382bc72.bin";
                 var pathbin = args == null ? null : args[0];
                 // 转化为对象
                 ClassCOM com = GTSharp.Core.SerializeHelper.FileTObje<ClassCOM>(pathbin);

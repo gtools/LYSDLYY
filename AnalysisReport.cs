@@ -16,13 +16,17 @@ namespace LYSDLYY
     public class AnalysisReport
     {
         /// <summary>
-        /// 导出模板：周报表.xls
+        /// 模板：每周院长查询报表
+        /// 导出：每周院长查询报表.xlsx
         /// 参数
-        /// 0：DataTable数据
-        /// 0：写入数据开始行
-        /// 1：日期增加天数
-        /// 2：模板文件路径
-        /// 3：保存文件路径
+        /// 0：Exe地址
+        /// 1：Bin地址
+        /// 2：模板地址
+        /// 3：保存地址
+        /// 4：模板文件名
+        /// 5：保存文件名
+        /// 6：查询时间
+        /// 7：数据导入开始行
         /// </summary>
         /// <param name="com"></param>
         public static void MZYZCXBB(ClassCOM com)
@@ -50,8 +54,37 @@ namespace LYSDLYY
             var book = new Workbook();
             book.LoadFromFile(Path.Combine(PathTemplate, NameTemplate));
             var sheet = book.Worksheets[0];
+            // 设置单元格日期
+            sheet.GetCellFirst().SetCellReplace("[DATE]", Date.ToString("yyyy年MM月"));
+            // 设置单元格计数
+            sheet.GetCellFirst().SetCellReplace("[NUM]", Helper.GetWeekNumInMonth(Date).ToString());
             sheet.DataTableToExcel(Data, RowBeginIndex);
+
             book.SaveToFile(Path.Combine(PathSave, NameSave));
+            sheet.Dispose();
+            book.Dispose();
+
+            //初始化workbook实例
+            Workbook workbook = new Workbook();
+            //加载Excel文档
+            workbook.LoadFromFile(Path.Combine(PathSave, NameSave));
+            // 获取第一个工作表
+            Worksheet sheet1 = workbook.Worksheets[0];
+            //将图表保存为图片
+            Image[] imgs = workbook.SaveChartAsImage(sheet1);
+            // 保存图片
+            var PathSaveImage = Path.ChangeExtension(Path.Combine(@"D:\每周报表图片\", "{0}" + NameSave), "png");
+            GTSharp.Core.FileHelper.DirCreate(Path.GetDirectoryName(PathSaveImage), false);
+            for (int i = 0; i < imgs.Length; i++)
+            {
+                imgs[i].Save(string.Format(PathSaveImage, i + 1), ImageFormat.Png);
+            }
+            sheet1.SaveToImage(1, 1, RowEndIndex + 1, Data.Columns.Count).Save(string.Format(PathSaveImage, string.Empty), ImageFormat.Png);
+            // 处理白边
+            Bitmap bitmap = new Bitmap(string.Format(PathSaveImage, string.Empty));
+            Bitmap bitmap1 = Helper.KiCut(bitmap, 66, 66, bitmap.Width - 66 - 66, bitmap.Height - 66 - 66);
+            bitmap.Dispose();
+            bitmap1.Save(string.Format(PathSaveImage, string.Empty));
         }
         /// <summary>
         /// 模板：每日1科室在院人数一览表

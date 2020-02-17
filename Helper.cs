@@ -82,5 +82,29 @@ namespace LYSDLYY
                 return null;
             }
         }
+
+        /// <summary>
+        /// 获取日期是月中第几周
+        /// </summary>
+        /// <param name="daytime"></param>
+        /// <returns></returns>
+        public static int GetWeekNumInMonth(DateTime daytime)
+        {
+            int dayInMonth = daytime.Day;
+            //本月第一天
+            DateTime firstDay = daytime.AddDays(1 - daytime.Day);
+            //本月第一天是周几
+            int weekday = (int)firstDay.DayOfWeek == 0 ? 7 : (int)firstDay.DayOfWeek;
+            //本月第一周有几天
+            int firstWeekEndDay = 7 - (weekday - 1);
+            //当前日期和第一周之差
+            int diffday = dayInMonth - firstWeekEndDay;
+            diffday = diffday > 0 ? diffday : 1;
+            //当前是第几周,如果整除7就减一天
+            int WeekNumInMonth = ((diffday % 7) == 0
+             ? (diffday / 7 - 1)
+             : (diffday / 7)) + 1 + (dayInMonth > firstWeekEndDay ? 1 : 0);
+            return WeekNumInMonth;
+        }
     }
 }

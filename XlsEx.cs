@@ -13,6 +13,10 @@ namespace LYSDLYY
     /// </summary>
     public static class XlsEx
     {
+        //合并单元格
+        //workbook.Worksheets[0].Range["A3:B5"].Merge();
+        //取消合并单元格
+        //workbook.Worksheets[0].Range["A3:B5"].UnMerge();
         #region 单元格
         /// <summary>
         /// 获取单元格
