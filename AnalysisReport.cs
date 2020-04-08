@@ -7,6 +7,7 @@ using System.Linq;
 using System.IO;
 using System.Drawing.Imaging;
 using System.Drawing;
+using GTSharp.Extension;
 
 namespace LYSDLYY
 {
