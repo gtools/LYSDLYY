@@ -8,6 +8,7 @@ using System.IO;
 using System.Drawing.Imaging;
 using System.Drawing;
 using GTSharp.Extension;
+using GTSharp.IO;
 
 namespace LYSDLYY
 {
@@ -16,6 +17,8 @@ namespace LYSDLYY
     /// </summary>
     public class AnalysisReport
     {
+
+        #region 每周院长查询报表
         /// <summary>
         /// 模板：每周院长查询报表
         /// 导出：每周院长查询报表.xlsx
@@ -58,7 +61,7 @@ namespace LYSDLYY
             // 设置单元格日期
             sheet.GetCellFirst().SetCellReplace("[DATE]", Date.ToString("yyyy年MM月"));
             // 设置单元格计数
-            sheet.GetCellFirst().SetCellReplace("[NUM]", Helper.GetWeekNumInMonth(Date).ToString());
+            sheet.GetCellFirst().SetCellReplace("[NUM]", (Helper.GetWeekNumInMonth(Date) - 1).ToString());
             sheet.DataTableToExcel(Data, RowBeginIndex);
 
             book.SaveToFile(Path.Combine(PathSave, NameSave));
@@ -75,7 +78,7 @@ namespace LYSDLYY
             Image[] imgs = workbook.SaveChartAsImage(sheet1);
             // 保存图片
             var PathSaveImage = Path.ChangeExtension(Path.Combine(@"D:\每周报表图片\", "{0}" + NameSave), "png");
-            GTSharp.Core.FileHelper.DirCreate(Path.GetDirectoryName(PathSaveImage), false);
+            DirectoryHelper.Create(Path.GetDirectoryName(PathSaveImage));
             for (int i = 0; i < imgs.Length; i++)
             {
                 imgs[i].Save(string.Format(PathSaveImage, i + 1), ImageFormat.Png);
@@ -87,6 +90,9 @@ namespace LYSDLYY
             bitmap.Dispose();
             bitmap1.Save(string.Format(PathSaveImage, string.Empty));
         }
+        #endregion
+
+        #region 每日院长查询报表
         /// <summary>
         /// 模板：每日1科室在院人数一览表
         /// 导出：科室在院人数一览表.xlsx
@@ -150,7 +156,7 @@ namespace LYSDLYY
             book.SaveToFile(Path.Combine(PathSave, NameSave));
             // 保存图片
             var PathSaveImage = Path.ChangeExtension(Path.Combine(@"D:\每日报表图片\", NameSave), "png");
-            GTSharp.Core.FileHelper.DirCreate(Path.GetDirectoryName(PathSaveImage), false);
+            DirectoryHelper.Create(Path.GetDirectoryName(PathSaveImage));
             sheet.SaveToImage(PathSaveImage, ImageFormat.Png);
             // 处理白边
             Bitmap bitmap = new Bitmap(PathSaveImage);
@@ -214,7 +220,7 @@ namespace LYSDLYY
             book.SaveToFile(Path.Combine(PathSave, NameSave));
             // 保存图片
             var PathSaveImage = Path.ChangeExtension(Path.Combine(@"D:\每日报表图片\", NameSave), "png");
-            GTSharp.Core.FileHelper.DirCreate(Path.GetDirectoryName(PathSaveImage), false);
+            DirectoryHelper.Create(Path.GetDirectoryName(PathSaveImage));
             sheet.SaveToImage(PathSaveImage, ImageFormat.Png);
             // 处理白边
             Bitmap bitmap = new Bitmap(PathSaveImage);
@@ -285,7 +291,7 @@ namespace LYSDLYY
             book.SaveToFile(Path.Combine(PathSave, NameSave));
             // 保存图片
             var PathSaveImage = Path.ChangeExtension(Path.Combine(@"D:\每日报表图片\", NameSave), "png");
-            GTSharp.Core.FileHelper.DirCreate(Path.GetDirectoryName(PathSaveImage), false);
+            DirectoryHelper.Create(Path.GetDirectoryName(PathSaveImage));
             sheet.SaveToImage(PathSaveImage, ImageFormat.Png);
             // 处理白边
             Bitmap bitmap = new Bitmap(PathSaveImage);
@@ -357,7 +363,7 @@ namespace LYSDLYY
             book.SaveToFile(Path.Combine(PathSave, NameSave));
             // 保存图片
             var PathSaveImage = Path.ChangeExtension(Path.Combine(@"D:\每日报表图片\", NameSave), "png");
-            GTSharp.Core.FileHelper.DirCreate(Path.GetDirectoryName(PathSaveImage), false);
+            DirectoryHelper.Create(Path.GetDirectoryName(PathSaveImage));
             sheet.SaveToImage(PathSaveImage, ImageFormat.Png);
             // 处理白边
             Bitmap bitmap = new Bitmap(PathSaveImage);
@@ -444,7 +450,7 @@ namespace LYSDLYY
             book.SaveToFile(Path.Combine(PathSave, NameSave));
             // 保存图片
             var PathSaveImage = Path.ChangeExtension(Path.Combine(@"D:\每日报表图片\", NameSave), "png");
-            GTSharp.Core.FileHelper.DirCreate(Path.GetDirectoryName(PathSaveImage), false);
+            DirectoryHelper.Create(Path.GetDirectoryName(PathSaveImage));
             sheet.SaveToImage(PathSaveImage, ImageFormat.Png);
             // 处理白边
             Bitmap bitmap = new Bitmap(PathSaveImage);
@@ -452,5 +458,11 @@ namespace LYSDLYY
             bitmap.Dispose();
             bitmap1.Save(PathSaveImage);
         }
+        #endregion
+
+        #region 每月院长查询报表
+
+        #endregion
+
     }
 }

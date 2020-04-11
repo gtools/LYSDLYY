@@ -52,6 +52,10 @@ namespace LYSDLYY
                     case "删除多余数据":
                         DeleteBin(Path.GetDirectoryName(pathbin), 50);
                         break;
+                    case "河南省医疗服务恢复情况监测周报表":
+                        Class1.hnsylfwhfqkjczbb(com);
+                        break;
+                    //
                     default:
                         // 删除多余数据
                         DeleteBin(Path.GetDirectoryName(pathbin), 50);

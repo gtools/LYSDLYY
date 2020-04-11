@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalysisReport.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="FSK.cs" />
     <Compile Include="QYWTJBL.cs" />
@@ -75,9 +76,6 @@
       <Project>{6c1e4c57-f94e-4cc2-96df-a4f83336a8bb}</Project>
       <Name>GTSharp</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include=".gitattributes" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
