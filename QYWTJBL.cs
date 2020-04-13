@@ -29,6 +29,9 @@ namespace LYSDLYY
         {
             // 数据
             var Data = com.Data.Tables[0].Copy();
+            // 无数据
+            if (Data.Rows.Count <= 0)
+                return;
             // 'Exe地址
             var PathExe = com.GetParam(0);
             // 'Bin地址
@@ -71,7 +74,6 @@ namespace LYSDLYY
                 }
                 //book.PrintDocument.PrintController = new StandardPrintController();
             }
-
         }
         public static List<string> GetDepts()
         {
@@ -80,16 +82,20 @@ namespace LYSDLYY
                 "呼吸内科、职业病病区",
                 "老年病、普内科病区",
                 "神经内科病区",
+                "神经内科二病区",
                 "心血管内科病区",
                 "消化科、肿瘤科病区",
                 "普外科、胸外科病区",
                 "泌尿外科病区",
                 "骨科二病区",
                 "新五官科病区",
+                "普外科、脑外科病区",
                 "骨科病区",
                 "新儿科康复病区",
                 "新儿科病区",
+                "儿科",
                 "心血管内科二病区",
+                "神经内科二病区",
                 "新妇产科病区",
                 "重症医学科(ICU)",
                 "内六科"
