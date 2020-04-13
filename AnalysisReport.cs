@@ -156,13 +156,7 @@ namespace LYSDLYY
             book.SaveToFile(Path.Combine(PathSave, NameSave));
             // 保存图片
             var PathSaveImage = Path.ChangeExtension(Path.Combine(@"D:\每日报表图片\", NameSave), "png");
-            DirectoryHelper.Create(Path.GetDirectoryName(PathSaveImage));
-            sheet.SaveToImage(PathSaveImage, ImageFormat.Png);
-            // 处理白边
-            Bitmap bitmap = new Bitmap(PathSaveImage);
-            Bitmap bitmap1 = Helper.KiCut(bitmap, 66, 66, bitmap.Width - 66 - 66, bitmap.Height - 66 - 66);
-            bitmap.Dispose();
-            bitmap1.Save(PathSaveImage);
+            Helper.SaveBmp(PathSaveImage, sheet);
         }
         /// <summary>
         /// 模板：每日2按手术时间统计手术人数表
@@ -220,13 +214,7 @@ namespace LYSDLYY
             book.SaveToFile(Path.Combine(PathSave, NameSave));
             // 保存图片
             var PathSaveImage = Path.ChangeExtension(Path.Combine(@"D:\每日报表图片\", NameSave), "png");
-            DirectoryHelper.Create(Path.GetDirectoryName(PathSaveImage));
-            sheet.SaveToImage(PathSaveImage, ImageFormat.Png);
-            // 处理白边
-            Bitmap bitmap = new Bitmap(PathSaveImage);
-            Bitmap bitmap1 = Helper.KiCut(bitmap, 66, 66, bitmap.Width - 66 - 66, bitmap.Height - 66 - 66);
-            bitmap.Dispose();
-            bitmap1.Save(PathSaveImage);
+            Helper.SaveBmp(PathSaveImage, sheet);
         }
         /// <summary>
         /// 模板：每日3在院危重病人患者明细表
@@ -291,13 +279,7 @@ namespace LYSDLYY
             book.SaveToFile(Path.Combine(PathSave, NameSave));
             // 保存图片
             var PathSaveImage = Path.ChangeExtension(Path.Combine(@"D:\每日报表图片\", NameSave), "png");
-            DirectoryHelper.Create(Path.GetDirectoryName(PathSaveImage));
-            sheet.SaveToImage(PathSaveImage, ImageFormat.Png);
-            // 处理白边
-            Bitmap bitmap = new Bitmap(PathSaveImage);
-            Bitmap bitmap1 = Helper.KiCut(bitmap, 66, 66, bitmap.Width - 66 - 66, bitmap.Height - 66 - 66);
-            bitmap.Dispose();
-            bitmap1.Save(PathSaveImage);
+            Helper.SaveBmp(PathSaveImage, sheet);
         }
         /*
         /// <summary>
@@ -450,13 +432,7 @@ namespace LYSDLYY
             book.SaveToFile(Path.Combine(PathSave, NameSave));
             // 保存图片
             var PathSaveImage = Path.ChangeExtension(Path.Combine(@"D:\每日报表图片\", NameSave), "png");
-            DirectoryHelper.Create(Path.GetDirectoryName(PathSaveImage));
-            sheet.SaveToImage(PathSaveImage, ImageFormat.Png);
-            // 处理白边
-            Bitmap bitmap = new Bitmap(PathSaveImage);
-            Bitmap bitmap1 = Helper.KiCut(bitmap, 66, 66, bitmap.Width - 66 - 66, bitmap.Height - 66 - 66);
-            bitmap.Dispose();
-            bitmap1.Save(PathSaveImage);
+            Helper.SaveBmp(PathSaveImage, sheet);
         }
         #endregion
 

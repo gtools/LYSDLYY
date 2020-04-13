@@ -1,8 +1,10 @@
-﻿using Spire.Xls;
+﻿using GTSharp.IO;
+using Spire.Xls;
 using System;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 
 namespace LYSDLYY
 {
@@ -105,6 +107,20 @@ namespace LYSDLYY
              ? (diffday / 7 - 1)
              : (diffday / 7)) + 1 + (dayInMonth > firstWeekEndDay ? 1 : 0);
             return WeekNumInMonth;
+        }
+
+        /// <summary>
+        /// 保存白边剪裁过
+        /// </summary>
+        public static void SaveBmp(string PathSaveImage, Worksheet sheet)
+        {
+            DirectoryHelper.Create(Path.GetDirectoryName(PathSaveImage));
+            sheet.SaveToImage(PathSaveImage, ImageFormat.Png);
+            // 处理白边
+            Bitmap bitmap = new Bitmap(PathSaveImage);
+            Bitmap bitmap1 = KiCut(bitmap, 66, 66, bitmap.Width - 66 - 66, bitmap.Height - 66 - 66);
+            bitmap.Dispose();
+            bitmap1.Save(PathSaveImage);
         }
     }
 }

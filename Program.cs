@@ -55,6 +55,12 @@ namespace LYSDLYY
                     case "河南省医疗服务恢复情况监测周报表":
                         Class1.hnsylfwhfqkjczbb(com);
                         break;
+                    case "入院人数和门急诊就诊人数":
+                        Class1.ryrshmjzjzrs(com);
+                        break;
+                    case "心血管疾病病人信息":
+                        Class1.xxgjbbrxx(com);
+                        break;
                     //
                     default:
                         // 删除多余数据

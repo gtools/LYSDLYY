@@ -1,13 +1,9 @@
 ﻿using GTSharp;
-using GTSharp.IO;
+using GTSharp.Extension;
 using Spire.Xls;
 using System;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 
 namespace LYSDLYY
 {
@@ -51,7 +47,7 @@ namespace LYSDLYY
             //设置单元格数据
             //日期  2020年 03 月 23 日——   03月  29  日
             var temp = Date.AddDays(-6).ToString("yyyy年 MM 月 dd 日") + "——   " + Date.ToString("MM月  dd  日");
-            sheet.SetCellValue(3, 1, temp);
+            sheet.GetCell(3, 1).SetCellReplace("[DATE]", temp);
             //门诊人次
             sheet.SetCellValue(6, 3, Data.Rows[0][0].ToString());
             sheet.SetCellValue(6, 4, Data.Rows[1][0].ToString());
@@ -70,6 +66,88 @@ namespace LYSDLYY
             book.SaveToFile(Path.Combine(PathSave, NameSave));
             sheet.Dispose();
             book.Dispose();
+        }
+
+        /// <summary>
+        /// 入院人数和门急诊就诊人数
+        /// </summary>
+        /// <param name="com"></param>
+        public static void ryrshmjzjzrs(ClassCOM com)
+        {
+            // 数据
+            var Data = com.Data.Tables[0].Copy();
+            // 无数据
+            if (Data.Rows.Count <= 0)
+                return;
+            // 'Exe地址
+            var PathExe = com.GetParam(0);
+            // 'Bin地址
+            var PathBin = com.GetParam(1);
+            // '模板地址
+            var PathTemplate = com.GetParam(2);
+            // '保存地址
+            //var PathSave = com.GetParam(3);
+            var PathSave = com.GetParam(8);
+            // '模板文件名
+            var NameTemplate = com.GetParam(4);
+            // '保存文件名
+            var NameSave = com.GetParam(5);
+            // '查询时间
+            var Date = DateTime.ParseExact(com.GetParam(6), "yyyyMMdd", CultureInfo.CurrentCulture);
+            // '数据导入开始行
+            var RowBeginIndex = int.Parse(com.GetParam(7));
+            // '数据导入结束行
+            var RowEndIndex = RowBeginIndex + Data.Rows.Count - 1;
+            var book = new Workbook();
+            book.LoadFromFile(Path.Combine(PathTemplate, NameTemplate));
+            var sheet = book.Worksheets[0];
+            // 设置单元格日期
+            sheet.GetCellFirst().SetCellReplace("[DATE]", Date.ToString("yyyy年MM月dd日"));
+            // 导出数据到Excel
+            sheet.DataTableToExcel(Data, RowBeginIndex, true);
+            // 保存
+            book.SaveToFile(Path.Combine(PathSave, NameSave));
+        }
+
+        /// <summary>
+        /// 心血管疾病病人信息
+        /// </summary>
+        /// <param name="com"></param>
+        public static void xxgjbbrxx(ClassCOM com)
+        {
+            // 数据
+            var Data = com.Data.Tables[0].Copy();
+            // 无数据
+            if (Data.Rows.Count <= 0)
+                return;
+            // 'Exe地址
+            var PathExe = com.GetParam(0);
+            // 'Bin地址
+            var PathBin = com.GetParam(1);
+            // '模板地址
+            var PathTemplate = com.GetParam(2);
+            // '保存地址
+            //var PathSave = com.GetParam(3);
+            var PathSave = com.GetParam(8);
+            // '模板文件名
+            var NameTemplate = com.GetParam(4);
+            // '保存文件名
+            var NameSave = com.GetParam(5);
+            // '查询时间
+            var Date = DateTime.ParseExact(com.GetParam(6), "yyyyMMdd", CultureInfo.CurrentCulture);
+            // '数据导入开始行
+            var RowBeginIndex = int.Parse(com.GetParam(7));
+            // '数据导入结束行
+            var RowEndIndex = RowBeginIndex + Data.Rows.Count - 1;
+            var book = new Workbook();
+            book.LoadFromFile(Path.Combine(PathTemplate, NameTemplate));
+            var sheet = book.Worksheets[0];
+            // 设置单元格日期
+            sheet.GetCellFirst().SetCellReplace("[DATE]", Date.ToString("yyyy年MM月"));
+            // 导出数据到Excel
+            sheet.DataTableToExcel(Data, RowBeginIndex, true);
+            // 保存
+            book.SaveToFile(Path.Combine(PathSave, NameSave));
         }
     }
 }

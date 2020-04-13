@@ -122,7 +122,17 @@ namespace LYSDLYY
         }
         #endregion
 
-
+        /// <summary>
+        /// 数据导入excel
+        /// </summary>
+        /// <param name="sheet"></param>
+        /// <param name="dt"></param>
+        /// <param name="firstRow"></param>
+        /// <param name="columnHeaders"></param>
+        public static void DataTableToExcel(this Worksheet sheet, DataTable dt, int firstRow, bool columnHeaders)
+        {
+            sheet.InsertDataTable(dt, columnHeaders, firstRow, 1);
+        }
         /// <summary>
         /// 数据导入excel
         /// </summary>
@@ -131,7 +141,7 @@ namespace LYSDLYY
         /// <param name="firstRow"></param>
         public static void DataTableToExcel(this Worksheet sheet, DataTable dt, int firstRow)
         {
-            sheet.InsertDataTable(dt, false, firstRow, 1);
+            sheet.DataTableToExcel(dt, firstRow, false);
         }
         /// <summary>
         /// 数据导入excel,第一行第一列
