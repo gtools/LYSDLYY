@@ -614,18 +614,36 @@ namespace LYSDLYY
             var sheet = book.Worksheets[0];
             // 设置单元格日期
             if (BMonth)
-            { 
+            {
                 sheet.GetCellFirst().SetCellReplace("[DATE]", $"{Date:yyyy年MM月}与{Date.AddYears(-1):yyyy年MM月}");
-                sheet.Replace("[YEAR1]", Date.AddYears(-1).Year.ToString());
-                sheet.Replace("[YEAR2]", Date.Year.ToString());
-                sheet.Replace("[MONTH]", Date.Month.ToString());
+                sheet.GetCell(2, 2).SetCellReplace("[YEAR1]", Date.AddYears(-1).Year.ToString());
+                sheet.GetCell(2, 2).SetCellReplace("[MONTH]", Date.Month.ToString());
+                sheet.GetCell(2, 6).SetCellReplace("[YEAR1]", Date.AddYears(-1).Year.ToString());
+                sheet.GetCell(2, 6).SetCellReplace("[MONTH]", Date.Month.ToString());
+                sheet.GetCell(2, 10).SetCellReplace("[YEAR1]", Date.AddYears(-1).Year.ToString());
+                sheet.GetCell(2, 10).SetCellReplace("[MONTH]", Date.Month.ToString());
+                sheet.GetCell(2, 3).SetCellReplace("[YEAR2]", Date.Year.ToString());
+                sheet.GetCell(2, 3).SetCellReplace("[MONTH]", Date.Month.ToString());
+                sheet.GetCell(2, 7).SetCellReplace("[YEAR2]", Date.Year.ToString());
+                sheet.GetCell(2, 7).SetCellReplace("[MONTH]", Date.Month.ToString());
+                sheet.GetCell(2, 11).SetCellReplace("[YEAR2]", Date.Year.ToString());
+                sheet.GetCell(2, 11).SetCellReplace("[MONTH]", Date.Month.ToString());
             }
             else
-            { 
+            {
                 sheet.GetCellFirst().SetCellReplace("[DATE]", $"{Date.Year}年1-{Date.Month}月与{Date.AddYears(-1).Year}年1-{Date.Month}月");
-                sheet.Replace("[YEAR1]", Date.AddYears(-1).Year.ToString());
-                sheet.Replace("[YEAR2]", Date.Year.ToString());
-                sheet.Replace("[MONTH]", $"1-{Date.Month}月");
+                sheet.GetCell(2, 2).SetCellReplace("[YEAR1]", Date.AddYears(-1).Year.ToString());
+                sheet.GetCell(2, 2).SetCellReplace("[MONTH]", $"1-{Date.Month}");
+                sheet.GetCell(2, 6).SetCellReplace("[YEAR1]", Date.AddYears(-1).Year.ToString());
+                sheet.GetCell(2, 6).SetCellReplace("[MONTH]", $"1-{Date.Month}");
+                sheet.GetCell(2, 10).SetCellReplace("[YEAR1]", Date.AddYears(-1).Year.ToString());
+                sheet.GetCell(2, 10).SetCellReplace("[MONTH]", $"1-{Date.Month}");
+                sheet.GetCell(2, 3).SetCellReplace("[YEAR2]", Date.Year.ToString());
+                sheet.GetCell(2, 3).SetCellReplace("[MONTH]", $"1-{Date.Month}");
+                sheet.GetCell(2, 7).SetCellReplace("[YEAR2]", Date.Year.ToString());
+                sheet.GetCell(2, 7).SetCellReplace("[MONTH]", $"1-{Date.Month}");
+                sheet.GetCell(2, 11).SetCellReplace("[YEAR2]", Date.Year.ToString());
+                sheet.GetCell(2, 11).SetCellReplace("[MONTH]", $"1-{Date.Month}");
             }
             // 行高
             sheet.GetCell(RowBeginIndex, 1, RowEndIndex, Data.Columns.Count).RowHeight = 27;
