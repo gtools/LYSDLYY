@@ -57,7 +57,7 @@ namespace LYSDLYY
                 var book = new Workbook();
                 book.LoadFromFile(Path.Combine(PathTemplate, NameTemplate));
                 var sheet = book.Worksheets[0];
-                var dr = Data.AsEnumerable().Where(t => t["科室"].ToString() == item);
+                var dr = Data.AsEnumerable().Where(t => item.Split('|').Any(i => t["科室"].ToString() == i));
                 if (dr.Count() > 0)
                 {
                     DataTable dt = dr.OrderBy(t => t["住院号"].ToString()).CopyToDataTable();
@@ -66,10 +66,19 @@ namespace LYSDLYY
                     sheet.InsertDataTable(dt, false, RowBeginIndex, 1);
                     var call = sheet.Range[RowBeginIndex, 1, RowEndIndex, dt.Columns.Count];
                     call.StyleLine();
-                    Helper.FindAllString(sheet, "[DEPT]", item);
+                    var dept = item;
+                    if (item == "呼吸内科、职业病病区|内六科")
+                        dept = "呼吸内科、内六科";
+                    if (item == "神经内科二病区|心血管内科病区")
+                        dept = "心血管内科、神经内科";
+                    if (item == "泌尿外科病区|骨科二病区")
+                        dept = "泌尿外科、骨科二";
+                    if (item == "新五官科病区|普外科、脑外科病区")
+                        dept = "新五官科、脑外科";
+                    Helper.FindAllString(sheet, "[DEPT]", dept);
                     Helper.FindAllString(sheet, "[NUM]", dt.Rows.Count.ToString());
                     Helper.FindAllString(sheet, "[DATE]", DateTime.Now.ToString("yyyy-MM-dd"));
-                    book.SaveToFile(Path.Combine(PathSave, item + ".xlsx"));
+                    book.SaveToFile(Path.Combine(PathSave, dept + ".xlsx"));
                     book.PrintDocument.Print();
                 }
                 //book.PrintDocument.PrintController = new StandardPrintController();
@@ -79,25 +88,21 @@ namespace LYSDLYY
         {
             return new List<string>()
             {
-                "呼吸内科、职业病病区",
+                "呼吸内科、职业病病区|内六科",
                 "老年病、普内科病区",
                 "神经内科病区",
-                "神经内科二病区",
-                "心血管内科病区",
+                "神经内科二病区|心血管内科病区",
                 "消化科、肿瘤科病区",
                 "普外科、胸外科病区",
-                "泌尿外科病区",
-                "骨科二病区",
-                "新五官科病区",
-                "普外科、脑外科病区",
+                "泌尿外科病区|骨科二病区",
+                "新五官科病区|普外科、脑外科病区",
                 "骨科病区",
                 "新儿科康复病区",
                 "新儿科病区",
                 "儿科",
                 "心血管内科二病区",
                 "新妇产科病区",
-                "重症医学科(ICU)",
-                "内六科"
+                "重症医学科(ICU)"
             };
         }
     }
