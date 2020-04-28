@@ -111,6 +111,16 @@ namespace LYSDLYY
             return cell.BooleanValue = value;
         }
         /// <summary>
+        /// 设置单元格值
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static double SetCellNumber(this CellRange cell, string value)
+        {
+            return cell.SetCell(double.Parse(value));
+        }
+        /// <summary>
         /// 替换单元格数据
         /// </summary>
         /// <param name="cell"></param>

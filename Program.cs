@@ -17,28 +17,31 @@ namespace LYSDLYY
             try
             {
                 // bin文件的地址
-                //var pathbin = @"C:\resource\金网运营管理系统\GTSharp\Bin\d5e7d753-9419-4db4-a6fe-b5ed6382bc72.bin";
                 var pathbin = args.Length == 0 ? "" : args[0];
+                //pathbin = @"D:\VS\LYSDLYYWX\LYSDLYYWX\bin\Debug\GTSharp\Bin\224c71d9-61be-4c7a-ac43-2106af293fcb.bin";
                 // 转化为对象
                 ClassCOM com = GTSharp.Core.SerializeHelper.FileTObje<ClassCOM>(pathbin);
                 switch (com.ComName)
                 {
-                    case "科室在院人数一览表":
+                    case "每日1科室在院人数一览表":
                         AnalysisReport.MRYYCXBB1(com);
                         break;
-                    case "按手术时间统计手术人数表":
+                    case "每日2按手术时间统计手术人数表":
                         AnalysisReport.MRYYCXBB2(com);
                         break;
-                    case "在院危重病人患者明细表":
+                    case "每日3在院危重病人患者明细表":
                         AnalysisReport.MRYYCXBB3(com);
                         break;
                     /*
-                case "在院I级护理患者明细表":
+                case "每日4在院I级护理患者明细表":
                     AnalysisReport.MRYYCXBB4(com);
                     break;
                     */
-                    case "主要业务数据表":
+                    case "每日5主要业务数据表":
                         AnalysisReport.MRYYCXBB5(com);
+                        break;
+                    case "每日8主要业务数据表":
+                        AnalysisReport.MRYYCXBB8(com);
                         break;
                     case "全院未交病历":
                         QYWTJBL.WeekReport1(com);
@@ -47,7 +50,7 @@ namespace LYSDLYY
                         FSK.DRBGDY(com);
                         break;
                     case "每周院长查询报表":
-                        AnalysisReport.MZYZCXBB(com);
+                        AnalysisReport.MZYZCXBB1(com);
                         break;
                     case "删除多余数据":
                         DeleteBin(Path.GetDirectoryName(pathbin), 50);
@@ -60,6 +63,21 @@ namespace LYSDLYY
                         break;
                     case "心血管疾病病人信息":
                         Class1.xxgjbbrxx(com);
+                        break;
+                    case "每月洛轴医保卡帐户":
+                        AnalysisReport.MYLZYBKZH(com);
+                        break;
+                    case "每月1住院主要业务数据同期比表":
+                        AnalysisReport.MYYZCXBB1(com);
+                        break;
+                    case "每月2医技科室收入数据同期比表":
+                        AnalysisReport.MYYZCXBB2(com);
+                        break;
+                    case "每月4每月手术人数表":
+                        AnalysisReport.MYYZCXBB4(com);
+                        break;
+                    case "每月3门急诊数据同期比表":
+                        AnalysisReport.MYYZCXBB3(com);
                         break;
                     //
                     default:

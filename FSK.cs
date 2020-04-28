@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.IO;
 using System.Globalization;
+using GTSharp.Extension;
 
 namespace LYSDLYY
 {
@@ -38,14 +39,15 @@ namespace LYSDLYY
             var dr = Data.AsEnumerable();
             foreach (var item in dr)
             {
+                if (item[0].ToString().IsNullOrWhiteSpace())
+                    continue;
                 var book = new Workbook();
                 book.LoadFromFile(Path.Combine(PathTemplate, NameTemplate));
                 var sheet = book.Worksheets[0];
-                sheet.Range[5, 1].Value = item[0].ToString();
-                sheet.Range[5, 2].Value = item[1].ToString();
-                sheet.Range[5, 3].Value = item[2].ToString();
-                sheet.Range[5, 4].Value = item[3].ToString();
-                sheet.Range[5, 5].Value = item[4].ToString();
+                for (int i = 0; i < item.ItemArray.Length; i++)
+                {
+                    sheet.Range[5, 1 + i].Value = item[i].ToString();
+                }
                 book.SaveToFile(Path.Combine(PathSave, item[1].ToString() + ".xlsx"));
                 book.PrintDocument.Print();
             }
