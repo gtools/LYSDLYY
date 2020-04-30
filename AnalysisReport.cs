@@ -651,6 +651,20 @@ namespace LYSDLYY
             sheet.GetCell(RowBeginIndex, 1, RowEndIndex, Data.Columns.Count).StyleLine();
             // 导出数据到Excel
             sheet.DataTableToExcel(Data, RowBeginIndex);
+            // 去掉同期比
+            for (int i = 0; i < Data.Rows.Count; i++)
+            {
+                if (Data.Rows[i][0].ToString() == "合计")
+                {
+                    continue;
+                }
+                else
+                {
+                    sheet.GetCell(RowBeginIndex + i, 4).Clear(ExcelClearOptions.ClearContent);
+                    sheet.GetCell(RowBeginIndex + i, 8).Clear(ExcelClearOptions.ClearContent);
+                    sheet.GetCell(RowBeginIndex + i, 12).Clear(ExcelClearOptions.ClearContent);
+                }
+            }
             // 保存
             book.SaveToFile(Path.Combine(PathSave, NameSave));
             // 保存图片
