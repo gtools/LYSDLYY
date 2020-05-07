@@ -288,6 +288,7 @@ namespace LYSDLYY
             var PathSaveImage = Path.ChangeExtension(Path.Combine(PathImageSave, NameSave), "png");
             Helper.SaveBmp(PathSaveImage, sheet);
         }
+
         /*
         /// <summary>
         /// 模板：每日4在院I级护理患者明细表
@@ -363,6 +364,7 @@ namespace LYSDLYY
             bitmap1.Save(PathSaveImage);
         }
         */
+
         /// <summary>
         /// 模板：每日5主要业务数据表
         /// 导出：主要业务数据表.xlsx
@@ -445,6 +447,7 @@ namespace LYSDLYY
             var PathSaveImage = Path.ChangeExtension(Path.Combine(PathImageSave, NameSave), "png");
             Helper.SaveBmp(PathSaveImage, sheet);
         }
+        
         /// <summary>
         /// 模板：每日8主要业务数据表
         /// 导出：主要业务数据表.xlsx
@@ -522,42 +525,60 @@ namespace LYSDLYY
             sheet.SetCellValue(4, 5, Data.Rows[0][13].ToString());
             //门诊平均
             sheet.SetCellValue(3, 5, Data.Rows[0][14].ToString());
-            //去年当天在院人数
-            sheet.SetCellValue(7, 2, Data.Rows[0][15].ToString());
-            //去年当天出院人次
-            sheet.SetCellValue(8, 2, Data.Rows[0][16].ToString());
-            //去年当天住院总收入
-            sheet.SetCellValue(9, 2, Data.Rows[0][17].ToString());
-            //去年当天门诊人次
-            sheet.SetCellValue(10, 2, Data.Rows[0][18].ToString());
-            //去年当天门诊总收入
-            sheet.SetCellValue(11, 2, Data.Rows[0][19].ToString());
-            //去年当天全院总收入
-            sheet.SetCellValue(12, 2, Data.Rows[0][20].ToString());
-            //在院人数同比
-            sheet.SetCellValue(7, 4, Data.Rows[0][21].ToString());
-            //出院结算人次同比
-            sheet.SetCellValue(8, 4, Data.Rows[0][22].ToString());
-            //住院总收入同比
-            sheet.SetCellValue(9, 4, Data.Rows[0][23].ToString());
-            //门诊结算人次同比
-            sheet.SetCellValue(10, 4, Data.Rows[0][24].ToString());
-            //门诊总收入同比
-            sheet.SetCellValue(11, 4, Data.Rows[0][25].ToString());
-            //全院总收入同比
-            sheet.SetCellValue(12, 4, Data.Rows[0][26].ToString());
-            //在院人数
-            sheet.SetCellValue(7, 6, Data.Rows[0][27].ToString());
-            //入院人次
-            sheet.SetCellValue(8, 6, Data.Rows[0][28].ToString());
+
             //急诊人次
-            sheet.SetCellValue(9, 6, Data.Rows[0][29].ToString());
+            sheet.SetCellValue(7, 2, Data.Rows[0][29].ToString());
+            //住院人次，在院人数
+            sheet.SetCellValue(7, 4, Data.Rows[0][27].ToString());
+            //入院人次
+            sheet.SetCellValue(7, 6, Data.Rows[0][28].ToString());
             //手术台次
-            sheet.SetCellValue(10, 6, Data.Rows[0][30].ToString());
+            sheet.SetCellValue(8, 2, Data.Rows[0][30].ToString());
             //危重患者人数
-            sheet.SetCellValue(11, 6, Data.Rows[0][31].ToString());
+            sheet.SetCellValue(8, 4, Data.Rows[0][31].ToString());
             //一级护理人数
-            sheet.SetCellValue(12, 6, Data.Rows[0][32].ToString());
+            sheet.SetCellValue(8, 6, Data.Rows[0][32].ToString());
+
+            //去年同期在院人数
+            sheet.SetCellValue(10, 3, Data.Rows[0][15].ToString());
+            //在院人数同比
+            sheet.SetCellValue(10, 6, Data.Rows[0][21].ToString());
+            //去年同期入院人次
+            sheet.SetCellValue(11, 3, Data.Rows[0][33].ToString());
+            //入院人数同比
+            sheet.SetCellValue(11, 6, Data.Rows[0][34].ToString());
+            //去年当天出院人次
+            sheet.SetCellValue(12, 3, Data.Rows[0][16].ToString());
+            //出院结算人次同比
+            sheet.SetCellValue(12, 6, Data.Rows[0][22].ToString());
+            //去年当天住院总收入
+            sheet.SetCellValue(13, 3, Data.Rows[0][17].ToString());
+            //住院总收入同比
+            sheet.SetCellValue(13, 6, Data.Rows[0][23].ToString());
+            //去年当天门诊人次
+            sheet.SetCellValue(14, 3, Data.Rows[0][18].ToString());
+            //门诊结算人次同比
+            sheet.SetCellValue(14, 6, Data.Rows[0][24].ToString());
+            //去年当天门诊总收入
+            sheet.SetCellValue(15, 3, Data.Rows[0][19].ToString());
+            //门诊总收入同比
+            sheet.SetCellValue(15, 6, Data.Rows[0][25].ToString());
+            //去年当天全院总收入
+            sheet.SetCellValue(16, 3, Data.Rows[0][20].ToString());
+            //全院总收入同比
+            sheet.SetCellValue(16, 6, Data.Rows[0][26].ToString());
+
+            ////门诊人次
+            //sheet.SetCellValue(3, 4, Data.Rows[0][11].ToString());
+            ////全院平均
+            ////sheet.SetCellValue(_dtstartheight, 2, _dt.Rows[0][12].ToString());
+            ////住院平均
+            //sheet.SetCellValue(4, 5, Data.Rows[0][13].ToString());
+            ////门诊平均
+            //sheet.SetCellValue(3, 5, Data.Rows[0][14].ToString());
+            ////在院人数
+            //sheet.SetCellValue(7, 6, Data.Rows[0][27].ToString());
+
             book.SaveToFile(Path.Combine(PathSave, NameSave));
             // 保存图片
             var PathSaveImage = Path.ChangeExtension(Path.Combine(PathImageSave, NameSave), "png");
