@@ -59,6 +59,8 @@
   <ItemGroup>
     <Compile Include="AnalysisReport.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="Class2.cs" />
+    <Compile Include="GTHelper.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="FSK.cs" />
     <Compile Include="QYWTJBL.cs" />

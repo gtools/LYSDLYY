@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Threading;
 using GTSharp;
+using GTSharp.GTApp;
 
 namespace LYSDLYY
 {
@@ -13,11 +13,22 @@ namespace LYSDLYY
         /// <param name="args">需要传入的数据</param>
         public static void Main(string[] args)
         {
-            Thread.Sleep(500);
             try
             {
                 // bin文件的地址
                 var pathbin = args.Length == 0 ? "" : args[0];
+
+
+                //// 转化为对象
+                //GTDataFile datafile = GTSharp.Core.SerializeHelper.FileTObje<GTDataFile>(pathbin);
+                //// 执行数据
+                //GTHelper.Save(datafile);
+                //GTSharp.Core.Log.Log4Net.Info("成功！");
+                ////关闭
+                //Close();
+                //return;
+                
+
                 //pathbin = @"D:\VS\LYSDLYYWX\LYSDLYYWX\bin\Debug\GTSharp\Bin\224c71d9-61be-4c7a-ac43-2106af293fcb.bin";
                 //pathbin = @"C:\resource\金网运营管理系统\GTSharp\Bin\66ce78c9-0833-4f38-a8da-7602bfc30d9f.bin";
                 // 转化为对象
@@ -51,7 +62,10 @@ namespace LYSDLYY
                         FSK.DRBGDY(com);
                         break;
                     case "每周院长查询报表":
-                        AnalysisReport.MZYZCXBB1(com);
+                        AnalysisReport.MZYZCXBB1(com); 
+                        break;
+                    case "每周2主要业务数据表":
+                        AnalysisReport.MZYZCXBB2(com); 
                         break;
                     case "删除多余数据":
                         DeleteBin(Path.GetDirectoryName(pathbin), 50);
@@ -79,6 +93,9 @@ namespace LYSDLYY
                         break;
                     case "每月3门急诊数据同期比表":
                         AnalysisReport.MYYZCXBB3(com);
+                        break;
+                    case "每月5主要业务数据表":
+                        AnalysisReport.MYYZCXBB5(com);
                         break;
                     //
                     default:
