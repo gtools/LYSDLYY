@@ -2,6 +2,7 @@
 using System.IO;
 using GTSharp;
 using GTSharp.GTApp;
+using Spire.Xls;
 
 namespace LYSDLYY
 {
@@ -18,25 +19,29 @@ namespace LYSDLYY
                 // bin文件的地址
                 var pathbin = args.Length == 0 ? "" : args[0];
 
-
-                //// 转化为对象
+                // 转化为对象
                 //GTDataFile datafile = GTSharp.Core.SerializeHelper.FileTObje<GTDataFile>(pathbin);
+
                 //// 执行数据
                 //GTHelper.Save(datafile);
                 //GTSharp.Core.Log.Log4Net.Info("成功！");
                 ////关闭
                 //Close();
                 //return;
-                
+
 
                 //pathbin = @"D:\VS\LYSDLYYWX\LYSDLYYWX\bin\Debug\GTSharp\Bin\224c71d9-61be-4c7a-ac43-2106af293fcb.bin";
                 //pathbin = @"C:\resource\金网运营管理系统\GTSharp\Bin\66ce78c9-0833-4f38-a8da-7602bfc30d9f.bin";
                 // 转化为对象
                 ClassCOM com = GTSharp.Core.SerializeHelper.FileTObje<ClassCOM>(pathbin);
+
+
+                //switch (datafile.Command)
                 switch (com.ComName)
                 {
                     case "每日1科室在院人数一览表":
                         AnalysisReport.MRYYCXBB1(com);
+                        //AnalysisReport.MR1(GTHelper.Save(datafile));
                         break;
                     case "每日2按手术时间统计手术人数表":
                         AnalysisReport.MRYYCXBB2(com);
@@ -44,11 +49,9 @@ namespace LYSDLYY
                     case "每日3在院危重病人患者明细表":
                         AnalysisReport.MRYYCXBB3(com);
                         break;
-                    /*
-                case "每日4在院I级护理患者明细表":
-                    AnalysisReport.MRYYCXBB4(com);
-                    break;
-                    */
+                    case "每日4在院I级护理患者明细表":
+                        AnalysisReport.MRYYCXBB3(com);
+                        break;
                     case "每日5主要业务数据表":
                         AnalysisReport.MRYYCXBB5(com);
                         break;
@@ -62,10 +65,10 @@ namespace LYSDLYY
                         FSK.DRBGDY(com);
                         break;
                     case "每周院长查询报表":
-                        AnalysisReport.MZYZCXBB1(com); 
+                        AnalysisReport.MZYZCXBB1(com);
                         break;
                     case "每周2主要业务数据表":
-                        AnalysisReport.MZYZCXBB2(com); 
+                        AnalysisReport.MZYZCXBB2(com);
                         break;
                     case "删除多余数据":
                         DeleteBin(Path.GetDirectoryName(pathbin), 50);
@@ -96,6 +99,12 @@ namespace LYSDLYY
                         break;
                     case "每月5主要业务数据表":
                         AnalysisReport.MYYZCXBB5(com);
+                        break;
+                    case "每月6主要业务数据表":
+                        AnalysisReport.MYYZCXBB6(com);
+                        break;
+                    case "每月在院人数":
+                        Class1.myzyrs(com);
                         break;
                     //
                     default:
