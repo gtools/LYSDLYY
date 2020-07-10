@@ -68,13 +68,17 @@ namespace LYSDLYY
                     call.StyleLine();
                     var dept = item;
                     if (item == "呼吸内科、职业病病区|内六科")
-                        dept = "呼吸内科、内六科";
+                        dept = "呼吸内、内六";
                     if (item == "神经内科二病区|心血管内科病区")
-                        dept = "心血管内科、神经内科";
+                        dept = "心内、神内";
                     if (item == "泌尿外科病区|骨科二病区")
-                        dept = "泌尿外科、骨科二";
+                        dept = "泌尿外、骨二";
                     if (item == "新五官科病区|普外科、脑外科病区")
-                        dept = "新五官科、脑外科";
+                        dept = "五官、脑外";
+                    if (item == "新儿科康复病区|新儿科病区")
+                        dept = "新儿科";
+                    if (item == "普外科、胸外科病区|急诊创伤病区")
+                        dept = "普外、急诊";
                     Helper.FindAllString(sheet, "[DEPT]", dept);
                     Helper.FindAllString(sheet, "[NUM]", dt.Rows.Count.ToString());
                     Helper.FindAllString(sheet, "[DATE]", DateTime.Now.ToString("yyyy-MM-dd"));
@@ -88,17 +92,17 @@ namespace LYSDLYY
         {
             return new List<string>()
             {
+                "皮肤科病区",
                 "呼吸内科、职业病病区|内六科",
                 "老年病、普内科病区",
                 "神经内科病区",
                 "神经内科二病区|心血管内科病区",
                 "消化科、肿瘤科病区",
-                "普外科、胸外科病区",
+                "普外科、胸外科病区|急诊创伤病区",
                 "泌尿外科病区|骨科二病区",
                 "新五官科病区|普外科、脑外科病区",
                 "骨科病区",
-                "新儿科康复病区",
-                "新儿科病区",
+                "新儿科康复病区|新儿科病区",
                 "儿科",
                 "心血管内科二病区",
                 "新妇产科病区",
