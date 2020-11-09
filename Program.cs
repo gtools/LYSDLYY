@@ -17,8 +17,8 @@ namespace LYSDLYY
             try
             {
                 // bin文件的地址
-                //var pathbin = args.Length == 0 ? "" : args[0];
-                var pathbin = @"C:\Users\Administrator\Desktop\af911b9d-828c-4807-882b-b24653eff13f.bin";
+                var pathbin = args.Length == 0 ? "" : args[0];
+                //var pathbin = @"C:\Users\Administrator\Desktop\af911b9d-828c-4807-882b-b24653eff13f.bin";
 
                 // 转化为对象
                 //GTDataFile datafile = GTSharp.Core.SerializeHelper.FileTObje<GTDataFile>(pathbin);
