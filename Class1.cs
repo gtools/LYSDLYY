@@ -143,7 +143,7 @@ namespace LYSDLYY
             book.LoadFromFile(Path.Combine(PathTemplate, NameTemplate));
             var sheet = book.Worksheets[0];
             // 设置单元格日期
-            sheet.GetCellFirst().SetCellReplace("[DATE]", Date.ToString("yyyy年MM月"));
+            sheet.GetCellFirst().SetCellReplace("[DATE]", GTSharp.Core.DateTimeHelper.GetWeekUpOfDate(Date, DayOfWeek.Monday, -1).ToString("yyyyMMdd") + "--" + GTSharp.Core.DateTimeHelper.GetWeekUpOfDate(Date, DayOfWeek.Sunday, -1).ToString("yyyyMMdd"));
             // 导出数据到Excel
             sheet.DataTableToExcel(Data, RowBeginIndex, true);
             // 保存
