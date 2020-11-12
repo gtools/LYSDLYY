@@ -50,6 +50,8 @@ namespace LYSDLYY
             var RowBeginIndex = int.Parse(com.GetParam(7));
             // '数据导入结束行
             var RowEndIndex = RowBeginIndex + Data.Rows.Count - 1;
+            // '数据导入开始行
+            var PrintOrSave = bool.Parse(com.GetParam(8));
             // 科室
             List<string> depts = GetDepts();
             foreach (var item in depts)
@@ -73,8 +75,8 @@ namespace LYSDLYY
                         dept = "心内、神内";
                     if (item == "泌尿外科病区|骨科二病区")
                         dept = "泌尿外、骨二";
-                    if (item == "新五官科病区|普外科、脑外科病区")
-                        dept = "五官、脑外";
+                    if (item == "新五官科病区|急诊创伤脑外病区")
+                        dept = "五官、急诊脑外";
                     if (item == "新儿科康复病区|新儿科病区")
                         dept = "新儿科";
                     if (item == "肿瘤科病区|消化科病区")
