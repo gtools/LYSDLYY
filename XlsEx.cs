@@ -184,6 +184,15 @@ namespace LYSDLYY
             return cells;
         }
         /// <summary>
+        /// 添加字体为绿色
+        /// </summary>
+        /// <param name="cells"></param>
+        public static CellRange StyleFontColorGreen(this CellRange cells)
+        {
+            cells.StyleFontColor(Color.Green);
+            return cells;
+        }
+        /// <summary>
         /// 添加字体颜色
         /// </summary>
         /// <param name="cells"></param>

@@ -19,6 +19,8 @@ namespace LYSDLYY
                 // bin文件的地址
                 var pathbin = args.Length == 0 ? "" : args[0];
                 //var pathbin = @"C:\resource\金网运营管理系统\GTSharp\Bin\42a68a38-8bb6-4eef-8f42-03cdcf598d69.bin";
+                //var pathbin = @"C:\Users\Administrator\Desktop\92483a25-dac2-4956-9893-a425256ca510.bin";
+                //fa6792dc-faa0-4295-b06f-d7bab6392316.bin
 
                 // 转化为对象
                 //GTDataFile datafile = GTSharp.Core.SerializeHelper.FileTObje<GTDataFile>(pathbin);
@@ -61,6 +63,9 @@ namespace LYSDLYY
                         break;
                     case "每日8主要业务数据表":
                         AnalysisReport.MRYYCXBB8(com);
+                        break;
+                    case "每日9科室在院人数一览表":
+                        AnalysisReport.MRYYCXBB9(com);
                         break;
                     case "全院未交病历":
                         QYWTJBL.WeekReport1(com);
