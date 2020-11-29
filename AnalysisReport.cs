@@ -868,6 +868,8 @@ namespace LYSDLYY
             sheet.DataTableToExcel(Data, RowBeginIndex, true);
             // 添加边框
             sheet.GetCell(RowBeginIndex, 1, RowEndIndex + 1, Data.Columns.Count).StyleLine();
+            // 自适应
+            sheet.AllocatedRange.AutoFitColumns();
             // 保存
             book.SaveToFile(Path.Combine(PathSave, NameSave));
             // 保存图片
