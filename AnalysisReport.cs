@@ -78,14 +78,14 @@ namespace LYSDLYY
             // 获取第一个工作表
             Worksheet sheet1 = workbook.Worksheets[0];
             //将图表保存为图片
-            Image[] imgs = workbook.SaveChartAsImage(sheet1);
+            //Image[] imgs = workbook.SaveChartAsImage(sheet1);
             // 保存图片
             var PathSaveImage = Path.ChangeExtension(Path.Combine(PathImageSave, "{0}" + NameSave), "png");
             DirectoryHelper.Create(Path.GetDirectoryName(PathSaveImage));
-            for (int i = 0; i < imgs.Length; i++)
-            {
-                imgs[i].Save(string.Format(PathSaveImage, i + 1), ImageFormat.Png);
-            }
+            //for (int i = 0; i < imgs.Length; i++)
+            //{
+            //    imgs[i].Save(string.Format(PathSaveImage, i + 1), ImageFormat.Png);
+            //}
             sheet1.SaveToImage(1, 1, RowEndIndex + 1, Data.Columns.Count).Save(string.Format(PathSaveImage, string.Empty), ImageFormat.Png);
             // 处理白边
             Bitmap bitmap = new Bitmap(string.Format(PathSaveImage, string.Empty));
@@ -632,7 +632,8 @@ namespace LYSDLYY
             book.LoadFromFile(Path.Combine(PathTemplate, NameTemplate));
             var sheet = book.Worksheets[0];
             // 设置单元格日期
-            sheet.GetCellFirst().SetCellReplace("[DATE]", Date.ToString("yyyy年MM月dd日"));
+            sheet.GetCellFirst().SetCellReplace("[DATE]", Date.ToString("yyyy年MM月dd日") + Date.ToString("dddd"));
+            sheet.GetCell(9,1).SetCellReplace("[DATE1]", Date.AddYears(-1).ToString("yyyy年MM月dd日") + Date.AddYears(-1).ToString("dddd"));
             //设置单元格数据
             //全院收入
             sheet.SetCellValue(5, 6, Data.Rows[0][0].ToString());
@@ -779,6 +780,11 @@ namespace LYSDLYY
                     //绿色
                     item.StyleFontColorGreen();
                 }
+                else 
+                {
+                    //0改为-
+                    item.Text = "-";
+                }
             }
             // 添加边框
             sheet.GetCell(RowBeginIndex, 1, RowEndIndex, Data.Columns.Count).StyleLine();
@@ -788,11 +794,80 @@ namespace LYSDLYY
             for (int i = Data.Columns.Count; i >= 1; i--)
             {
                 //获取单元格数据
-                var _temp = sheet.GetCell(RowEndIndex, i).NumberText;
+                var _item = sheet.GetCell(RowEndIndex, i);
+                var _temp = _item.NumberText;
                 //删除列
                 if (_temp == "0" || _temp.IsNullOrWhiteSpace())
                     sheet.DeleteColumn(i);
+                else
+                {
+                    int s = 0;
+                    int.TryParse(_temp, out s);
+                    if (s < 0)
+                    {
+                        //绿色
+                        _item.StyleFontColorGreen();
+                    }
+                }
             }
+            // 保存
+            book.SaveToFile(Path.Combine(PathSave, NameSave));
+            // 保存图片
+            var PathSaveImage = Path.ChangeExtension(Path.Combine(PathImageSave, NameSave), "png");
+            Helper.SaveBmp(PathSaveImage, sheet);
+        }
+
+
+        /// <summary>
+        /// 模板：每日10门诊退费明细
+        /// 导出：门诊退费明细表.xlsx
+        /// 参数
+        /// 0：Exe地址
+        /// 1：Bin地址
+        /// 2：模板地址
+        /// 3：保存地址
+        /// 4：模板文件名
+        /// 5：保存文件名
+        /// 6：查询时间
+        /// 7：数据导入开始行
+        /// </summary>
+        /// <param name="com"></param>
+        public static void MRYYCXBB10(ClassCOM com)
+        {
+            // 数据
+            var Data = com.Data.Tables[0].Copy();
+            // 无数据
+            if (Data.Rows.Count <= 0)
+                return;
+            // 'Exe地址
+            var PathExe = com.GetParam(0);
+            // 'Bin地址
+            var PathBin = com.GetParam(1);
+            // '模板地址
+            var PathTemplate = com.GetParam(2);
+            // '保存地址
+            var PathSave = com.GetParam(3);
+            // '模板文件名
+            var NameTemplate = com.GetParam(4);
+            // '保存文件名
+            var NameSave = com.GetParam(5);
+            // '查询时间
+            var Date = DateTime.ParseExact(com.GetParam(6), "yyyyMMdd", CultureInfo.CurrentCulture);
+            // '数据导入开始行
+            var RowBeginIndex = int.Parse(com.GetParam(7));
+            // '保存图片地址
+            var PathImageSave = com.GetParam(8);
+            // '数据导入结束行
+            var RowEndIndex = RowBeginIndex + Data.Rows.Count - 1;
+            var book = new Workbook();
+            book.LoadFromFile(Path.Combine(PathTemplate, NameTemplate));
+            var sheet = book.Worksheets[0];
+            // 设置单元格日期
+            sheet.GetCellFirst().SetCellReplace("[DATE]", Date.AddDays(-1).ToString("yyyy年MM月dd日") + "-" + Date.ToString("yyyy年MM月dd日"));
+            // 导出数据到Excel
+            sheet.DataTableToExcel(Data, RowBeginIndex, true);
+            // 添加边框
+            sheet.GetCell(RowBeginIndex, 1, RowEndIndex + 1, Data.Columns.Count).StyleLine();
             // 保存
             book.SaveToFile(Path.Combine(PathSave, NameSave));
             // 保存图片

@@ -67,6 +67,9 @@ namespace LYSDLYY
                     case "每日9科室在院人数一览表":
                         AnalysisReport.MRYYCXBB9(com);
                         break;
+                    case "每日10门诊退费明细":
+                        AnalysisReport.MRYYCXBB10(com);
+                        break;
                     case "全院未交病历":
                         QYWTJBL.WeekReport1(com);
                         break;
