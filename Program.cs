@@ -18,8 +18,8 @@ namespace LYSDLYY
             {
                 // bin文件的地址
                 var pathbin = args.Length == 0 ? "" : args[0];
-                //var pathbin = @"C:\resource\金网运营管理系统\GTSharp\Bin\42a68a38-8bb6-4eef-8f42-03cdcf598d69.bin";
-                //var pathbin = @"C:\Users\Administrator\Desktop\92483a25-dac2-4956-9893-a425256ca510.bin";
+                //var pathbin = @"C:\resource\金网运营管理系统\GTSharp\Bin\67e33f08-3b94-4afb-83e5-063c559dfa76.bin";
+                //var pathbin = @"D:\VS\LYSDLYYWX\LYSDLYYWX\bin\Debug\GTSharp\Bin\1a28113e-67d4-4e6a-9824-96b02bb23705.bin";
                 //fa6792dc-faa0-4295-b06f-d7bab6392316.bin
 
                 // 转化为对象
@@ -117,6 +117,9 @@ namespace LYSDLYY
                         break;
                     case "每月在院人数":
                         Class1.myzyrs(com);
+                        break;
+                    case "每日核酸检测信息":
+                        Class1.MRHSJCXX(com);
                         break;
                     //
                     default:

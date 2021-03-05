@@ -50,8 +50,6 @@ namespace LYSDLYY
             var RowBeginIndex = int.Parse(com.GetParam(7));
             // '数据导入结束行
             var RowEndIndex = RowBeginIndex + Data.Rows.Count - 1;
-            // '数据导入开始行
-            var PrintOrSave = bool.Parse(com.GetParam(8));
             // 科室
             List<string> depts = GetDepts();
             foreach (var item in depts)
