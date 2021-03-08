@@ -121,6 +121,9 @@ namespace LYSDLYY
                     case "每日核酸检测信息":
                         Class1.MRHSJCXX(com);
                         break;
+                    case "每日核酸检测信息1":
+                        Class1.MRHSJCXX1(com);
+                        break;
                     //
                     default:
                         // 删除多余数据

@@ -242,5 +242,56 @@ namespace LYSDLYY
             book.SaveToFile(Path.Combine(PathSave, NameSave));
         }
 
+
+        /// <summary>
+        /// 每日核酸检测信息1
+        /// </summary>
+        /// <param name="com"></param>
+        public static void MRHSJCXX1(ClassCOM com)
+        {
+            // 数据
+            var Data = com.Data.Tables[0].Copy();
+            // 无数据
+            if (Data.Rows.Count <= 0)
+                return;
+            // 'Exe地址
+            var PathExe = com.GetParam(0);
+            // 'Bin地址
+            var PathBin = com.GetParam(1);
+            // '模板地址
+            var PathTemplate = com.GetParam(2);
+            // '保存地址
+            //var PathSave = com.GetParam(3);
+            var PathSave = com.GetParam(8);
+            // '模板文件名
+            var NameTemplate = com.GetParam(4);
+            // '保存文件名
+            var NameSave = com.GetParam(5);
+            // '查询时间
+            var Date = DateTime.ParseExact(com.GetParam(6), "yyyyMMdd", CultureInfo.CurrentCulture);
+            // '数据导入开始行
+            var RowBeginIndex = int.Parse(com.GetParam(7));
+            // '数据导入结束行
+            var RowEndIndex = RowBeginIndex + Data.Rows.Count - 1;
+            var book = new Workbook();
+            book.LoadFromFile(Path.Combine(PathTemplate, NameTemplate));
+            var sheet = book.Worksheets[0];
+            // 设置单元格日期
+            sheet.GetCell(1, 2).SetCellReplace("{0}", Date.ToString("MM月dd日"));
+            // 导出数据到Excel
+            sheet.DataTableToExcel(Data, RowBeginIndex);
+            // 添加边框 // 字号 // 加粗 // 居中
+            var cells = sheet.GetCell(RowBeginIndex, 1, RowEndIndex, Data.Columns.Count);
+            //cells.StyleLine().StyleFontSize(16).StyleFontIsBold().StyleFontCenter();
+            cells.StyleLine();
+            // 行高
+            //cells.RowHeight = 32;
+            //报送人：郑铮
+            //报送人联系方式（手机号）：18637958250
+            sheet.GetCell(RowEndIndex + 2, 2).Text = "报送人：郑铮";
+            sheet.GetCell(RowEndIndex + 2, 5).Text = "报送人联系方式（手机号）：18637958250";
+            // 保存
+            book.SaveToFile(Path.Combine(PathSave, NameSave));
+        }
     }
 }

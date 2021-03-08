@@ -62,9 +62,9 @@ namespace LYSDLYY
             book.LoadFromFile(Path.Combine(PathTemplate, NameTemplate));
             var sheet = book.Worksheets[0];
             // 设置单元格日期
-            sheet.GetCellFirst().SetCellReplace("[DATE]", Date.ToString("yyyy年MM月"));
+            sheet.GetCellFirst().SetCellReplace("[Date]", $"({Date.AddDays(-7).ToString("dd")}-{Date.AddDays(-1).ToString("dd")})");
             // 设置单元格计数
-            sheet.GetCellFirst().SetCellReplace("[NUM]", (Helper.GetWeekNumInMonth(Date) - 1).ToString());
+            sheet.GetCellFirst().SetCellReplace("[Year]", Date.ToString("yyyy年MM月"));
             sheet.DataTableToExcel(Data, RowBeginIndex);
 
             book.SaveToFile(Path.Combine(PathSave, NameSave));
