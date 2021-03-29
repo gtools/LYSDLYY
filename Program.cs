@@ -34,7 +34,7 @@ namespace LYSDLYY
 
 
                 //pathbin = @"D:\VS\LYSDLYYWX\LYSDLYYWX\bin\Debug\GTSharp\Bin\224c71d9-61be-4c7a-ac43-2106af293fcb.bin";
-                //pathbin = @"C:\resource\金网运营管理系统\GTSharp\Bin\66ce78c9-0833-4f38-a8da-7602bfc30d9f.bin";
+                //pathbin = @"C:\Users\Administrator\Desktop\0f8783e4-6966-4f4e-8bb5-03092ea5c308.bin";
                 // 转化为对象
                 ClassCOM com = GTSharp.Core.SerializeHelper.FileTObje<ClassCOM>(pathbin);
 
@@ -69,6 +69,15 @@ namespace LYSDLYY
                         break;
                     case "每日10门诊退费明细":
                         AnalysisReport.MRYYCXBB10(com);
+                        break;
+                    case "每日11门诊日志登记表":
+                        AnalysisReport.MRYYCXBB11(com);
+                        break;
+                    case "每日12门诊日志汇总表":
+                        AnalysisReport.MRYYCXBB12(com);
+                        break;
+                    case "每日13门诊疑似胸痛患者列表":
+                        AnalysisReport.MRYYCXBB13(com);
                         break;
                     case "全院未交病历":
                         QYWTJBL.WeekReport1(com);
@@ -123,6 +132,12 @@ namespace LYSDLYY
                         break;
                     case "每日核酸检测信息1":
                         Class1.MRHSJCXX1(com);
+                        break;
+                    case "每日核酸检测信息2":
+                        Class1.MRHSJCXX2(com);
+                        break;
+                    case "每日核酸检测信息3":
+                        Class1.MRHSJCXX3(com);
                         break;
                     //
                     default:

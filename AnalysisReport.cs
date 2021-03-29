@@ -62,11 +62,8 @@ namespace LYSDLYY
             book.LoadFromFile(Path.Combine(PathTemplate, NameTemplate));
             var sheet = book.Worksheets[0];
             // 设置单元格日期
-            sheet.GetCellFirst().SetCellReplace("[Date]", $"({Date.AddDays(-7).ToString("dd")}-{Date.AddDays(-1).ToString("dd")})");
-            // 设置单元格计数
-            sheet.GetCellFirst().SetCellReplace("[Year]", Date.ToString("yyyy年MM月"));
+            sheet.GetCellFirst().SetCellReplace("[DATE]", $"{ Date.AddDays(-6):yyyy年MM月dd日}-{Date:MM月dd日}");
             sheet.DataTableToExcel(Data, RowBeginIndex);
-
             book.SaveToFile(Path.Combine(PathSave, NameSave));
             sheet.Dispose();
             book.Dispose();
@@ -871,6 +868,199 @@ namespace LYSDLYY
             // 自适应
             sheet.AllocatedRange.AutoFitColumns();
             // 保存
+            book.SaveToFile(Path.Combine(PathSave, NameSave));
+            // 保存图片
+            var PathSaveImage = Path.ChangeExtension(Path.Combine(PathImageSave, NameSave), "png");
+            Helper.SaveBmp(PathSaveImage, sheet);
+        }
+
+        /// <summary>
+        /// 模板：每日11门诊日志登记表
+        /// 导出：每日11门诊日志登记表.xlsx
+        /// 参数
+        /// 0：Exe地址
+        /// 1：Bin地址
+        /// 2：模板地址
+        /// 3：保存地址
+        /// 4：模板文件名
+        /// 5：保存文件名
+        /// 6：查询时间
+        /// 7：数据导入开始行
+        /// </summary>
+        /// <param name="com"></param>
+        public static void MRYYCXBB11(ClassCOM com)
+        {
+            // 数据
+            var Data = com.Data.Tables[0].Copy();
+            // 无数据
+            if (Data.Rows.Count <= 0)
+                return;
+            // 'Exe地址
+            var PathExe = com.GetParam(0);
+            // 'Bin地址
+            var PathBin = com.GetParam(1);
+            // '模板地址
+            var PathTemplate = com.GetParam(2);
+            // '保存地址
+            var PathSave = com.GetParam(3);
+            // '模板文件名
+            var NameTemplate = com.GetParam(4);
+            // '保存文件名
+            var NameSave = com.GetParam(5);
+            // '查询时间
+            var Date = DateTime.ParseExact(com.GetParam(6), "yyyyMMdd", CultureInfo.CurrentCulture);
+            // '数据导入开始行
+            var RowBeginIndex = int.Parse(com.GetParam(7));
+            // '保存图片地址
+            var PathImageSave = com.GetParam(8);
+            var s = Data.Rows.Count % 300 == 0 ? Data.Rows.Count / 300  : Data.Rows.Count / 300 + 1;
+            for (int i = 0; i < s; i++)
+            {
+                var book = new Workbook();
+                book.LoadFromFile(Path.Combine(PathTemplate, NameTemplate));
+                var sheet = book.Worksheets[0];
+                // 设置单元格日期
+                sheet.GetCellFirst().SetCellReplace("[DATE]", Date.ToString("yyyy年MM月dd日"));
+                // 设置单元格计数
+                sheet.GetCell(2, 1).SetCellReplace("[NUM]", Data.Rows.Count.ToString());
+                var data = Data.AsEnumerable().Skip(i * 300).Take(300).CopyToDataTable();
+                // '数据导入结束行
+                var RowEndIndex = RowBeginIndex + data.Rows.Count - 1;
+                // 导出数据到Excel
+                sheet.DataTableToExcel(data, RowBeginIndex);
+                // 添加边框 // 字号 // 加粗 // 居中
+                var cells = sheet.GetCell(RowBeginIndex, 1, RowEndIndex, Data.Columns.Count);
+                //cells.StyleLine().StyleFontSize(16).StyleFontIsBold().StyleFontCenter();
+                cells.StyleLine();
+                // 行高
+                //cells.RowHeight = 32;
+                book.SaveToFile(Path.Combine(PathSave, NameSave));
+                // 保存图片
+                var PathSaveImage = Path.ChangeExtension(Path.Combine(PathImageSave, Path.GetFileNameWithoutExtension(NameSave) + (i + 1).ToString()), "png");
+                //var PathSaveImage1 = Path.ChangeExtension(Path.Combine(PathImageSave, Path.GetFileNameWithoutExtension(NameSave) + "1"), "png");
+                Helper.SaveBmp(PathSaveImage, sheet);
+            }
+            
+        }
+
+        /// <summary>
+        /// 模板：每日12门诊日志汇总表
+        /// 导出：每日12门诊日志汇总表.xlsx
+        /// 参数
+        /// 0：Exe地址
+        /// 1：Bin地址
+        /// 2：模板地址
+        /// 3：保存地址
+        /// 4：模板文件名
+        /// 5：保存文件名
+        /// 6：查询时间
+        /// 7：数据导入开始行
+        /// </summary>
+        /// <param name="com"></param>
+        public static void MRYYCXBB12(ClassCOM com)
+        {
+            // 数据
+            var Data = com.Data.Tables[0].Copy();
+            // 无数据
+            if (Data.Rows.Count <= 0)
+                return;
+            // 'Exe地址
+            var PathExe = com.GetParam(0);
+            // 'Bin地址
+            var PathBin = com.GetParam(1);
+            // '模板地址
+            var PathTemplate = com.GetParam(2);
+            // '保存地址
+            var PathSave = com.GetParam(3);
+            // '模板文件名
+            var NameTemplate = com.GetParam(4);
+            // '保存文件名
+            var NameSave = com.GetParam(5);
+            // '查询时间
+            var Date = DateTime.ParseExact(com.GetParam(6), "yyyyMMdd", CultureInfo.CurrentCulture);
+            // '数据导入开始行
+            var RowBeginIndex = int.Parse(com.GetParam(7));
+            // '保存图片地址
+            var PathImageSave = com.GetParam(8);
+            // '数据导入结束行
+            var RowEndIndex = RowBeginIndex + Data.Rows.Count - 1;
+            var book = new Workbook();
+            book.LoadFromFile(Path.Combine(PathTemplate, NameTemplate));
+            var sheet = book.Worksheets[0];
+            // 设置单元格日期
+            sheet.GetCellFirst().SetCellReplace("[DATE]", Date.ToString("yyyy年MM月dd日"));
+            // 设置单元格计数
+            sheet.GetCell(2, 1).SetCellReplace("[NUM]", Data.AsEnumerable().Select(d => d.Field<decimal>("日志条数")).Sum().ToString());
+            // 导出数据到Excel
+            sheet.DataTableToExcel(Data, RowBeginIndex);
+            // 添加边框 // 字号 // 加粗 // 居中
+            var cells = sheet.GetCell(RowBeginIndex, 1, RowEndIndex, Data.Columns.Count);
+            //cells.StyleLine().StyleFontSize(16).StyleFontIsBold().StyleFontCenter();
+            cells.StyleLine().StyleFontSize(16).StyleFontIsBold();
+            // 行高
+            cells.RowHeight = 32;
+            book.SaveToFile(Path.Combine(PathSave, NameSave));
+            // 保存图片
+            var PathSaveImage = Path.ChangeExtension(Path.Combine(PathImageSave, NameSave), "png");
+            Helper.SaveBmp(PathSaveImage, sheet);
+        }
+
+        /// <summary>
+        /// 模板：每日13门诊疑似胸痛患者列表
+        /// 导出：每日13门诊疑似胸痛患者列表.xlsx
+        /// 参数
+        /// 0：Exe地址
+        /// 1：Bin地址
+        /// 2：模板地址
+        /// 3：保存地址
+        /// 4：模板文件名
+        /// 5：保存文件名
+        /// 6：查询时间
+        /// 7：数据导入开始行
+        /// </summary>
+        /// <param name="com"></param>
+        public static void MRYYCXBB13(ClassCOM com)
+        {
+            // 数据
+            var Data = com.Data.Tables[0].Copy();
+            // 无数据
+            if (Data.Rows.Count <= 0)
+                return;
+            // 'Exe地址
+            var PathExe = com.GetParam(0);
+            // 'Bin地址
+            var PathBin = com.GetParam(1);
+            // '模板地址
+            var PathTemplate = com.GetParam(2);
+            // '保存地址
+            var PathSave = com.GetParam(3);
+            // '模板文件名
+            var NameTemplate = com.GetParam(4);
+            // '保存文件名
+            var NameSave = com.GetParam(5);
+            // '查询时间
+            var Date = DateTime.ParseExact(com.GetParam(6), "yyyyMMdd", CultureInfo.CurrentCulture);
+            // '数据导入开始行
+            var RowBeginIndex = int.Parse(com.GetParam(7));
+            // '保存图片地址
+            var PathImageSave = com.GetParam(8);
+            // '数据导入结束行
+            var RowEndIndex = RowBeginIndex + Data.Rows.Count - 1;
+            var book = new Workbook();
+            book.LoadFromFile(Path.Combine(PathTemplate, NameTemplate));
+            var sheet = book.Worksheets[0];
+            // 设置单元格日期
+            sheet.GetCellFirst().SetCellReplace("[DATE]", Date.ToString("yyyy年MM月dd日"));
+            // 设置单元格计数
+            sheet.GetCell(2, 1).SetCellReplace("[NUM]", Data.Rows.Count.ToString());
+            // 导出数据到Excel
+            sheet.DataTableToExcel(Data, RowBeginIndex);
+            // 添加边框 // 字号 // 加粗 // 居中
+            var cells = sheet.GetCell(RowBeginIndex, 1, RowEndIndex, Data.Columns.Count);
+            //cells.StyleLine().StyleFontSize(16).StyleFontIsBold().StyleFontCenter();
+            cells.StyleLine();
+            // 行高
+            //cells.RowHeight = 32;
             book.SaveToFile(Path.Combine(PathSave, NameSave));
             // 保存图片
             var PathSaveImage = Path.ChangeExtension(Path.Combine(PathImageSave, NameSave), "png");

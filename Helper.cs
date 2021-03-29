@@ -23,6 +23,7 @@ namespace LYSDLYY
         {
             return dt.Rows.Count + rowIndexBegin - 1;
         }
+
         /// <summary>
         /// 查询替换文字
         /// </summary>
@@ -112,15 +113,23 @@ namespace LYSDLYY
         /// <summary>
         /// 保存白边剪裁过
         /// </summary>
-        public static void SaveBmp(string PathSaveImage, Worksheet sheet)
+        public static void SaveBmp(string PathSaveImage, Worksheet sheet, ImageFormat format)
         {
             DirectoryHelper.Create(Path.GetDirectoryName(PathSaveImage));
-            sheet.SaveToImage(PathSaveImage, ImageFormat.Png);
+            sheet.SaveToImage(PathSaveImage, format);
             // 处理白边
             Bitmap bitmap = new Bitmap(PathSaveImage);
             Bitmap bitmap1 = KiCut(bitmap, 66, 66, bitmap.Width - 66 - 66, bitmap.Height - 66 - 66);
             bitmap.Dispose();
-            bitmap1.Save(PathSaveImage);
+            bitmap1.Save(PathSaveImage, format);
+        }
+
+        /// <summary>
+        /// 保存白边剪裁过
+        /// </summary>
+        public static void SaveBmp(string PathSaveImage, Worksheet sheet)
+        {
+            SaveBmp(PathSaveImage, sheet, ImageFormat.Png);
         }
     }
 }
