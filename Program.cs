@@ -61,6 +61,9 @@ namespace LYSDLYY
                     case "每日5主要业务数据表":
                         AnalysisReport.MRYYCXBB5(com);
                         break;
+                    case "每日7主要业务数据表":
+                        AnalysisReport.MRYYCXBB7(com);
+                        break;
                     case "每日8主要业务数据表":
                         AnalysisReport.MRYYCXBB8(com);
                         break;
